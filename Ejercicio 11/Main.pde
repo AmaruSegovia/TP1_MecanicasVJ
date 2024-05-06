@@ -7,7 +7,7 @@ public void setup()
 {
   size(500,500);
   puntoA = new PVector(0, 0);
-  puntoB = new PVector(1, 0);
+  puntoB = new PVector(10, 0);
   posicionTesoro = new PVector(width/2,height/2);
   vectorPersonaje = new Vector (puntoA, puntoB);
   vectorPersonajeTesoro = new Vector();
@@ -16,10 +16,12 @@ public void setup()
 public void draw()
 {
  background(#1D0F0F);
-    vectorPersonaje.setOrigen(new PVector (mouseX,mouseY));
     stroke(#ff6961); // Rojo
+    vectorPersonaje.setOrigen(new PVector (mouseX,mouseY));
     vectorPersonaje.display();
+    stroke(#84b6f4); //Azul
     dibujarTesoro();
+    stroke(#77dd77); // Verde
     dibujarVectorPersonajeTesoro();
     escribirMensaje();
 }
@@ -33,7 +35,7 @@ public void dibujarTesoro()
 public void dibujarVectorPersonajeTesoro()
 {
   vectorPersonajeTesoro.setOrigen(vectorPersonaje.getOrigen());
-  vectorPersonajeTesoro.setDestino(PVector.sub(posicionTesoro, vectorPersonaje.getOrigen()).normalize());
+  vectorPersonajeTesoro.setDestino(PVector.sub(posicionTesoro, vectorPersonaje.getOrigen()).normalize().mult(10));
   vectorPersonajeTesoro.display();
 }
 
@@ -45,24 +47,12 @@ public void escribirMensaje()
   fill(#ff6961);
   text(dotProducto,100,20);
   
-  if (dotProducto == 1)
+  if (dotProducto < 0)
   {
-  text("180Grados",200,400);
-  }
-  if (0 < dotProducto && dotProducto < 1)
+    fill(#ff6961);
+    text("Esta adelante",100,40);
+  }else
   {
-  text("Atras",200,400);
-  }
-  if (dotProducto == 0)
-  {
-  text("90 Grados o -90 Grados",200,400);
-  }
-  if (-1 < dotProducto && dotProducto < 0)
-  {
-  text("Adelante",200,400);
-  }
-  if (dotProducto == -1)
-  {
-  text("0 Grados",200,400);
+    text("Esta atras",100,40);
   }
 }
