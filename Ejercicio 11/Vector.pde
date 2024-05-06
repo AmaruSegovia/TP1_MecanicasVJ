@@ -35,33 +35,22 @@ private PVector destino;
   }
 
   public void display ()
-     {
-     PVector puntoFinal = obtenerPuntoFinal();
-     strokeWeight(4);
-     line(origen.x, origen.y, puntoFinal.x,puntoFinal.y);
-     point(PVector.add(this.getOrigen(), this.getDestino()).x,
-     PVector.add(this.getOrigen(), this.getDestino()).y);
+      {
+      PVector puntoFinal = obtenerPuntoFinal();
+      strokeWeight(4);
+      line(origen.x, origen.y, puntoFinal.x,puntoFinal.y);
+      point(PVector.add(this.getOrigen(), this.getDestino()).x,
+            PVector.add(this.getOrigen(), this.getDestino()).y);
       }
-      
     private PVector obtenerPuntoFinal()
     {
     PVector puntoFinal = new PVector(origen.x+destino.x,origen.y+destino.y);
     return puntoFinal;
     }
 
-    public Vector sumar(Vector segundoVector)
+    public float obtenerProductoPunto(Vector vector)
     {
-      Vector vectorTotal = new Vector();
-      vectorTotal.origen = this.origen;
-      vectorTotal.destino = PVector.add(this.destino,segundoVector.destino);
-      return vectorTotal;
+      return PVector.dot(this.getDestino(),vector.getDestino());
     }
 
-    public Vector restar(Vector segundoVector)
-    {
-      Vector vectorTotal = new Vector();
-      vectorTotal.origen = this.origen;
-      vectorTotal.destino = PVector.sub(this.destino,segundoVector.destino);
-      return vectorTotal;
-    }
 }
