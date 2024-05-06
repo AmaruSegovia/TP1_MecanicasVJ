@@ -36,8 +36,11 @@ private PVector destino;
 
   public void display ()
       {
-  PVector puntoFinal = obtenerPuntoFinal();
-  line(origen.x, origen.y, puntoFinal.x,puntoFinal.y);
+      PVector puntoFinal = obtenerPuntoFinal();
+      strokeWeight(4);
+      line(origen.x, origen.y, puntoFinal.x,puntoFinal.y);
+      point(PVector.add(this.getOrigen(), this.getDestino()).x,
+          PVector.add(this.getOrigen(), this.getDestino()).y);
       }
   private PVector obtenerPuntoFinal()
     {

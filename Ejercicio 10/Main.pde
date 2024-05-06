@@ -1,60 +1,32 @@
-Vector vector1;
-Vector vector2;
-Vector vectorSuma;
-Vector vectorResta;
+Vector vectorA;
+Vector vectorB;
+Vector vectorC;
+Vector vectorD;
+Vector vectorE;
 public void setup()
 {
-  size (500,500);
-  vector1 = new Vector (new PVector (width/2,height/2), new PVector(100,250));
-  vector2 = new Vector (new PVector (width/2,height/2), new PVector(100,120));
-  vectorSuma = vector1.sumar(vector2);
-  vectorResta = vector1.restar(vector2);
+  // Definir los puntos A, B y C
+  PVector puntoA = new PVector(width/2-40, height/2-80);
+  PVector puntoB = new PVector(160, -40);
+  PVector puntoC = new PVector(250, 80);
+  size (900,900);
+  vectorA = new Vector (puntoA, puntoC);
+  vectorB = new Vector (puntoA, puntoB);
+  vectorC = vectorA.sumar(vectorB);
+  vectorD = new Vector (PVector.add(puntoA,vectorA.destino),PVector.sub(vectorC.destino,vectorA.destino));
+  vectorE = new Vector (PVector.add(puntoA,vectorB.destino),PVector.sub(vectorC.destino,vectorB.destino));
 }
   public void draw ()
   {
-    background(255);
-    stroke(#FFF40000);
-    vector1.display();
-    vector2.display();
-    stroke(#0000FF);
-    vectorSuma.display();
-    stroke(#4729C1);
-    vectorResta.display();
-    //sumarVectores();
-    //vector1.origen.x= mouseX;
-    //vector1.origen.y= mouseY;
-    //vector2.origen.x= mouseX;
-    //vector2.origen.y= mouseY;
-    //multiplicarPorEscalar(3);
+    background(#1D0F0F);
+    stroke(#ff6961); // Rojo
+    vectorA.display();
+    stroke(#77dd77); // Verde
+    vectorB.display();
+    stroke(#fdfd96); // Amarillo
+    vectorC.display();
+    stroke(#84b6f4); // Azul
+    vectorD.display();
+    stroke(#ffe4e1); //Rosado
+    vectorE.display();
   }
-
-  public void sumarVectores()
-{
-  Vector vectorSuma = new Vector();
-  vectorSuma.origen = vector1.origen;
-  //vectorSuma.destino.x = vector1.destino.x + vector2.destino.x;
-  //vectorSuma.destino.y = vector1.destino.y + vector2.destino.y;
-  vectorSuma.destino = PVector.add(vector1.destino,vector2.destino);
-  vectorSuma.display();
-}
-  public void restarVectores()
-  {
-    Vector vectorSuma = new Vector();
-    vectorSuma.origen = vector1.origen;
-    //vectorSuma.destino.x = vector1.destino.x + vector2.destino.x;
-    //vectorSuma.destino.y = vector1.destino.y + vector2.destino.y;
-    vectorSuma.destino = PVector.sub(vector1.destino,vector2.destino);
-    vectorSuma.display();
-  }
-
-  public void multiplicarPorEscalar(int k)
-{
-  Vector productoFactor = new Vector();
-  productoFactor.origen = new PVector (0, 0);
-  productoFactor.destino = new PVector(k * vector1.destino.x, k * vector1.destino.y); 
-  //productoFactor.destino = PVector.mult(vector1.destino,k);
-  productoFactor.display();
-  fill(9);
-  text(vector1.destino.mag(),10,10);
-  text(productoFactor.destino.mag(),50,50);
-}
