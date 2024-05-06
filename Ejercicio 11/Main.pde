@@ -1,25 +1,44 @@
+// Puntos
 PVector puntoA;
 PVector posicionJugador;
 PVector posicionEnemigo;
+
+//Vectores
 Vector vectorJugador;
 Vector vectorEnemigo;
 Vector vectorEnemigoJugador;
+
+//GameObjects
+private Jugador jugador;
+Enemigo enemigo;
+
 public void setup()
 {
-  size(500,500);
-  
+  size(1000,1000);
+  //Puntos
   posicionEnemigo = new PVector(width/2,height/2);
   posicionJugador = new PVector(0, 0);
   puntoA = new PVector(1, 0);
+  //Vectores
   vectorJugador = new Vector (posicionJugador, puntoA);
   vectorEnemigo = new Vector (posicionEnemigo,puntoA);
   vectorEnemigoJugador = new Vector();
+  
+  //GameObject
+  jugador = new Jugador(posicionJugador,20,20);
+  enemigo = new Enemigo(posicionEnemigo,50,50);
 }
 
 public void draw()
 {
  background(#1D0F0F);
-    stroke(#ff6961); // Rojo
+    jugador.setPosicion(vectorJugador.getOrigen());
+    jugador.display();
+    
+    enemigo.setPosicion(vectorEnemigo.getOrigen());
+    enemigo.display();
+    
+    stroke(#ff6961); // Rojoawd
     vectorJugador.setOrigen(new PVector (mouseX,mouseY));
     vectorJugador.display();
     stroke(#77dd77); // Verde
