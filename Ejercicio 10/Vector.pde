@@ -42,10 +42,10 @@ private PVector destino;
       point(PVector.add(this.getOrigen(), this.getDestino()).x,
           PVector.add(this.getOrigen(), this.getDestino()).y);
       }
-  private PVector obtenerPuntoFinal()
+    private PVector obtenerPuntoFinal()
     {
-  PVector puntoFinal = new PVector(origen.x+destino.x,origen.y+destino.y);
-  return puntoFinal;
+    PVector puntoFinal = new PVector(origen.x+destino.x,origen.y+destino.y);
+    return puntoFinal;
     }
 
   public Vector sumar(Vector segundoVector)

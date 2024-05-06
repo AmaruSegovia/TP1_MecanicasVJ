@@ -3,13 +3,16 @@ Vector vectorB;
 Vector vectorC;
 Vector vectorD;
 Vector vectorE;
+PVector puntoA;
+PVector puntoB;
+PVector puntoC;
 public void setup()
 {
+    size (900,500);
   // Definir los puntos A, B y C
-  PVector puntoA = new PVector(width/2-40, height/2-80);
-  PVector puntoB = new PVector(160, -40);
-  PVector puntoC = new PVector(250, 80);
-  size (900,900);
+  puntoA = new PVector(width/2-40, height/2-80);
+  puntoB = new PVector(160, -40);
+  puntoC = new PVector(250, 80);
   vectorA = new Vector (puntoA, puntoC);
   vectorB = new Vector (puntoA, puntoB);
   vectorC = vectorA.sumar(vectorB);
@@ -29,4 +32,36 @@ public void setup()
     vectorD.display();
     stroke(#ffe4e1); //Rosado
     vectorE.display();
+    stroke(0);
+    
+    
+    fill(#0e8d94);
+    strokeWeight(1.5);
+    ellipse(puntoA.x,puntoA.y, 8,8);
+    
+    // Dibujar el rectángulo de fondo
+    fill(200);
+    rect(100, 160, 200, 160);
+    
+    fill(#F6FF93,200);
+    stroke(#F6FF93,200);
+    rect(150, 150, 100, 20);
+    
+    stroke(0);
+    // Calcular el centro del rectángulo
+    float centerX = 100 + 200/2;
+    float centerY = 100 + 200/2;
+  
+    // Mostrar el texto alineado al centro del rectángulo
+    textAlign(CENTER, CENTER); // Alinear el texto al centro
+    textSize(14);
+    fill(#0e8d94);
+    strokeWeight(1.5);
+    ellipse(centerY-60, centerX-10, 8,8);
+    fill(0);
+    text("Punto de Origen", centerX, centerY-10);
+    text("Vectores", centerX, centerY + 20);
+    text("VectorA = Vector(A,C)", centerX, centerY + 40); //Rojo
+    text("VectorB = Vector(A,B)", centerX, centerY + 60); //Verde
+    text("VectorC = VectorA + VectorB", centerX, centerY + 80); //Amarillo
   }
