@@ -1,58 +1,84 @@
 PVector puntoA;
-PVector puntoB;
-PVector posicionTesoro;
-Vector vectorPersonaje;
-Vector vectorPersonajeTesoro;
+PVector posicionJugador;
+PVector posicionEnemigo;
+Vector vectorJugador;
+Vector vectorEnemigo;
+Vector vectorEnemigoJugador;
 public void setup()
 {
   size(500,500);
-  puntoA = new PVector(0, 0);
-  puntoB = new PVector(10, 0);
-  posicionTesoro = new PVector(width/2,height/2);
-  vectorPersonaje = new Vector (puntoA, puntoB);
-  vectorPersonajeTesoro = new Vector();
+  
+  posicionEnemigo = new PVector(width/2,height/2);
+  posicionJugador = new PVector(0, 0);
+  puntoA = new PVector(1, 0);
+  vectorJugador = new Vector (posicionJugador, puntoA);
+  vectorEnemigo = new Vector (posicionEnemigo,puntoA);
+  vectorEnemigoJugador = new Vector();
 }
 
 public void draw()
 {
  background(#1D0F0F);
     stroke(#ff6961); // Rojo
-    vectorPersonaje.setOrigen(new PVector (mouseX,mouseY));
-    vectorPersonaje.display();
-    stroke(#84b6f4); //Azul
-    dibujarTesoro();
+    vectorJugador.setOrigen(new PVector (mouseX,mouseY));
+    vectorJugador.display();
     stroke(#77dd77); // Verde
-    dibujarVectorPersonajeTesoro();
+    dibujarVectorEnemigoJugador();
+    vectorEnemigo.display();
     escribirMensaje();
 }
 
-public void dibujarTesoro()
+public void dibujarVectorEnemigoJugador()
 {
-  strokeWeight(10);
-  point(posicionTesoro.x,posicionTesoro.y);
+  vectorEnemigoJugador.setOrigen(posicionEnemigo);
+  vectorEnemigoJugador.setDestino(new PVector(1,0));
+  vectorEnemigoJugador.setDestino(PVector.sub(vectorJugador.getOrigen(),posicionEnemigo).normalize());
+  vectorEnemigoJugador.display();
 }
 
-public void dibujarVectorPersonajeTesoro()
-{
-  vectorPersonajeTesoro.setOrigen(vectorPersonaje.getOrigen());
-  vectorPersonajeTesoro.setDestino(PVector.sub(posicionTesoro, vectorPersonaje.getOrigen()).normalize().mult(10));
-  vectorPersonajeTesoro.display();
+float anguloEntreVectores(Vector vector1, Vector vector2) {
+  // Calcula el producto punto entre los dos vectores
+  float productoPunto = PVector.dot(vector1.getDestino(), vector2.getDestino());
+  
+  // Calcula las magnitudes de los vectores
+  float magnitudVector1 = vector1.getDestino().mag();
+  float magnitudVector2 = vector2.getDestino().mag();
+  
+  // Calcula el coseno del ángulo entre los vectores
+  float cosenoAngulo = productoPunto / (magnitudVector1 * magnitudVector2);
+  
+  // Aplica la función arcocoseno para obtener el ángulo en radianes
+  float anguloRadianes = acos(cosenoAngulo);
+  
+  // Convierte el ángulo a grados si es necesario
+  float anguloGrados = degrees(anguloRadianes);
+  
+  return anguloGrados;
 }
 
 public void escribirMensaje()
 {
-  float dotProducto = vectorPersonaje.obtenerProductoPunto(vectorPersonajeTesoro);
+  float dotProducto = vectorEnemigo.obtenerProductoPunto(vectorEnemigoJugador);
   println(dotProducto);
   textSize(20);
   fill(#ff6961);
-  text(dotProducto,100,20);
+  text("Resultado producto punto: "+ dotProducto,100,30);
+  float anguloGrados = 30; //Angulo de deteccion del enemigo
+  float anguloRadianes = radians(anguloGrados);
+  float cosenoAngulo = cos(anguloRadianes);
   
-  if (dotProducto < 0)
+  float angulo = round(anguloEntreVectores(vectorEnemigo,vectorEnemigoJugador));
+  String anguloFormateado = nf(angulo); //Lo formateo con entero para que quede bonito
+  
+  text("Angulo: " + anguloFormateado +"°",80,170);
+  
+  
+  if (dotProducto > cosenoAngulo)
   {
     fill(#ff6961);
-    text("Esta adelante",100,40);
+    text("Detectado",100,50);
   }else
   {
-    text("Esta atras",100,40);
+    text("No detectado",100,50);
   }
 }
