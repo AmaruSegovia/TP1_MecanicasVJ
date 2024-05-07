@@ -3,8 +3,6 @@ class Enemigo extends GameObject implements IVisualizable
   private PImage sprite;
   private Vector vectorEnemigo;
   private Vector vectorEnemigoJugador;
-  private int frameUltimoDisparo; // Variable para rastrear el último momento de disparo
-  private int intervaloDisparo = 60; // Intervalo de tiempo entre disparos (en frames)
   
   public Enemigo() {}
 
@@ -14,7 +12,7 @@ class Enemigo extends GameObject implements IVisualizable
     this.posicion = posicion;
     this.ancho=ancho;
     this.alto=alto;
-    this.sprite = loadImage("enemigo.png");
+    this.sprite = loadImage("batidora.png");
     this.vectorEnemigoJugador =  new Vector();
   }
   
@@ -40,7 +38,7 @@ class Enemigo extends GameObject implements IVisualizable
   {
     vectorEnemigoJugador.setOrigen(enemigo.getPosicion());
     vectorEnemigoJugador.setDestino(new PVector(1,0));
-    vectorEnemigoJugador.setDestino(PVector.sub(jugador.posicion,enemigo.posicion).normalize());
+    vectorEnemigoJugador.setDestino(PVector.sub(jugador.getPosicion(),enemigo.getPosicion()).normalize());
     vectorEnemigoJugador.display();
   }
   
@@ -52,7 +50,7 @@ class Enemigo extends GameObject implements IVisualizable
     fill(#ff6961);
     text("Resultado producto punto: "+ dotProducto,100,30);
 
-    float anguloDeteccion = cos(radians(179));
+    float anguloDeteccion = cos(radians(170));
     
     float anguloEntreVectores = round(anguloEntreVectores(vectorEnemigo,vectorEnemigoJugador));
 
@@ -92,14 +90,11 @@ class Enemigo extends GameObject implements IVisualizable
   }
   
   private void dispararProyectil() {
-        // Verificar si ha pasado suficiente tiempo desde el último disparo
-   
-            // Calcular la dirección hacia el jugador
-            PVector direccion = PVector.sub(jugador.getPosicion(), this.getPosicion()).normalize();
-            // Crear un nuevo proyectil y agregarlo a la lista de proyectiles
-            Proyectil proyectil = new Proyectil(posicion, direccion, 100, 100); // Ajusta el tamaño del proyectil según sea necesario
-            //proyectil.display();
-            proyectil.mover();
-
-    }
+        // Calcular la dirección hacia el jugador en el momento del disparo
+        PVector direccionJugador = PVector.sub(jugador.getPosicion(), enemigo.getPosicion()).normalize();
+        // Crear un nuevo proyectil y agregarlo a la lista de proyectiles
+        Proyectil proyectil = new Proyectil(enemigo.getPosicion(), direccionJugador, 100, 100); // Ajusta el tamaño del proyectil según sea necesario
+        //proyectil.display();
+        proyectil.mover();
+  }
 }
