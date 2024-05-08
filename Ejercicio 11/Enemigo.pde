@@ -85,7 +85,7 @@ class Enemigo extends GameObject implements IVisualizable
     textSize(40);
     text(" ! ! ! ",enemigo.getPosicion().x-31,enemigo.getPosicion().y-40+desplazamientoVertical);
     //Disparar Proyectil
-    dispararProyectil(jugador, 5);
+    dispararProyectil(5);
   }else
   {
     fill(#ffbd77);
@@ -94,12 +94,12 @@ class Enemigo extends GameObject implements IVisualizable
   }
   }
   
-   public void dispararProyectil(Jugador jugador, float velocidadProyectil) {
+   public void dispararProyectil( float velocidadProyectil) {
      
         float tiempoActual = millis(); // Obtiene el tiempo actual en milisegundos
         if (tiempoActual - tiempoUltimoDisparo > intervaloDisparo) {  
-        PVector direccion = PVector.sub(new PVector(jugador.getPosicion().x,jugador.getPosicion().y), this.posicion);// Multiplica la dirección por la velocidad del proyectil para obtener el vector de velocidad
-        direccion.normalize(); // Normaliza el vector para obtener una dirección
+          //
+        PVector direccion = new PVector(vectorEnemigoJugador.getDestino().x, vectorEnemigoJugador.getDestino().y);// Multiplica la dirección por la velocidad del proyectil para obtener el vector de velocidad
         direccion.mult(velocidadProyectil); // Multiplica la dirección por la velocidad del proyectil para obtener el vector de velocidad
         Proyectil proyectil = new Proyectil(enemigo.getPosicion(), direccion); // Crea un nuevo proyectil en la posición del enemigo con la velocidad calculada
         listaProyectiles.add(proyectil); // Agrega el proyectil a la lista de proyectiles
