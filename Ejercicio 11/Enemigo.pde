@@ -52,7 +52,7 @@ class Enemigo extends GameObject implements IVisualizable
     println(dotProducto);
     textSize(20);
     fill(#ff6961);
-    text("Producto Punto: "+ dotProducto,100,50);
+    text("Producto Punto: "+ dotProducto,100,320);
 
     float anguloDeteccion = cos(radians(30));
     //float anguloFake = degrees(PVector.angleBetween(vectorEnemigo.getDestino(),vectorEnemigoJugador.getDestino()));
@@ -60,22 +60,22 @@ class Enemigo extends GameObject implements IVisualizable
     float anguloEntreVectores = round(anguloEntreVectores(vectorEnemigo,vectorEnemigoJugador));
 
     String anguloFormateado = nf(anguloEntreVectores); //Lo formateo con entero para que quede bonito
-    text("Angulo: " + anguloFormateado +"°",101,90);
+    text("Angulo: " + anguloFormateado +"°",101,360);
     fill(#77dd77);
-    text("Rango de deteccion <= 30°",100,70);
+    text("Rango de deteccion <= 30°",100,340);
     
     if (dotProducto > anguloDeteccion)
   {
     fill(#d53032);
-    textSize(30);
-    text("!  !  !",width/4-21,height/2-70);
+    textSize(40);
+    text("!  !  !",width/4-31,height/2-70);
     //Disparar Proyectil
     dispararProyectil(jugador, 5);
   }else
   {
     fill(#ffbd77);
-    textSize(30);
-    text(".  .  .",width/4-20,height/2-70);
+    textSize(40);
+    text(".  .  .",width/4-29,height/2-70);
   }
   }
   
