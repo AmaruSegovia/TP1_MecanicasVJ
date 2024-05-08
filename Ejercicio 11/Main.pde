@@ -1,3 +1,4 @@
+import java.util.Iterator;
 // Puntos
 PVector puntoA;
 PVector posicionJugador;
@@ -11,7 +12,7 @@ Jugador jugador;
 Enemigo enemigo;
 public void setup()
 {
-  size(800,800);
+  size(800,1000);
   //Puntos
   posicionEnemigo = new PVector(width/2-200,height/2);
   posicionJugador = new PVector(0, 0);
@@ -35,13 +36,24 @@ public void draw()
     //Enemigo
     enemigo.display();     
     enemigo.vectorEnemigoJugador(jugador);
+    
+    Iterator<Proyectil> iterator = enemigo.listaProyectiles.iterator();
+    while (iterator.hasNext()) {
+        Proyectil proyectil = iterator.next();
+        proyectil.actualizar(); // Actualiza la posición del proyectil
+        proyectil.display();    // Dibuja el proyectil
+        
+        // Si el proyectil sale de la pantalla, remuévelo de la lista usando el iterador
+        if (proyectil.fueraDePantalla()) {
+            iterator.remove(); // Usa el iterador para eliminar el proyectil de la lista
+        }
+    }
+
+
 
     stroke(#ff6961); // Rojo
     vectorJugador.setOrigen(new PVector (mouseX,mouseY));
     vectorJugador.display();
-    text("yo cuando la batidora ",width/2,height/2);
-    text("la batidora",width/2,height/2+50);
-    text("la batidora",width/2,height/2+30);
     stroke(#77dd77); // Verde
     //dibujarVectorEnemigoJugador(jugador);
     //vectorEnemigo.display();

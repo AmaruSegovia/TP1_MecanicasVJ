@@ -30,7 +30,7 @@ public void setup()
     vectorC.display();
     stroke(#84b6f4); // Azul
     vectorD.display();
-    stroke(#ffe4e1); //Rosado
+    stroke(#ffe4e1); //Rosa
     vectorE.display();
     stroke(0);
     
