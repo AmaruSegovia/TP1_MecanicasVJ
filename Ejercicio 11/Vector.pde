@@ -52,5 +52,10 @@ private PVector destino;
     {
       return PVector.dot(this.getDestino(),vector.getDestino());
     }
+    
+    public float anguloEntreVectores(Vector vector)
+    {
+      return degrees(PVector.angleBetween(this.getDestino(), vector.getDestino()));
+    }
 
 }

@@ -23,7 +23,7 @@ class Enemigo extends GameObject implements IVisualizable
   public void display()
   {
     image(sprite, enemigo.getPosicion().x - sprite.width/4, enemigo.getPosicion().y - sprite.height/4,ancho+80,alto+80);
-    
+    enemigo.vectorEnemigoJugador(jugador);
     vectorUnitarioDerecha();
     this.vectorEnemigo.display();
     detectarJugador();
@@ -33,6 +33,7 @@ class Enemigo extends GameObject implements IVisualizable
   {
      this.vectorEnemigo = new Vector(enemigo.getPosicion(), new PVector(1,0));
   }
+  
   public void vectorUnitarioIzquierda()
   {
      this.vectorEnemigo = new Vector(enemigo.getPosicion(), new PVector(-1,0));
@@ -41,7 +42,6 @@ class Enemigo extends GameObject implements IVisualizable
   public void vectorEnemigoJugador(GameObject jugador)
   {
     vectorEnemigoJugador.setOrigen(enemigo.getPosicion());
-    vectorEnemigoJugador.setDestino(new PVector(1,0));
     vectorEnemigoJugador.setDestino(PVector.sub(jugador.getPosicion(),enemigo.getPosicion()).normalize());
     vectorEnemigoJugador.display();
   }
@@ -49,22 +49,27 @@ class Enemigo extends GameObject implements IVisualizable
   public void detectarJugador()
   {
     float dotProducto = vectorEnemigo.obtenerProductoPunto(vectorEnemigoJugador);
+    float anguloVectores = vectorEnemigo.obtenerProductoPunto(vectorEnemigoJugador);
+    
     println(dotProducto);
     textSize(20);
     fill(#ff6961);
     text("Producto Punto: "+ dotProducto,100,320);
+    text("Angulo entre 2 Vectores: "+ anguloVectores,100,300);
 
-    float anguloDeteccion = cos(radians(30));
-    //float anguloFake = degrees(PVector.angleBetween(vectorEnemigo.getDestino(),vectorEnemigoJugador.getDestino()));
+    int angulo = 30;
+    float anguloDeteccion = cos(radians(angulo));  //Radio de deteccion del enemigo
     
-    float anguloEntreVectores = round(anguloEntreVectores(vectorEnemigo,vectorEnemigoJugador));
+    int anguloGrados = round(degrees(acos(anguloVectores))); //Lo hago solo para mostrar por pantalla
+    if(anguloGrados <= 30)
+    {
+        fill(#77dd77);
+    }
+    text("Rango de deteccion: " + angulo +"°",100,340);
+    fill(#ff6961);
+    text("Angulo: " + anguloGrados +"°",101,360);
 
-    String anguloFormateado = nf(anguloEntreVectores); //Lo formateo con entero para que quede bonito
-    text("Angulo: " + anguloFormateado +"°",101,360);
-    fill(#77dd77);
-    text("Rango de deteccion <= 30°",100,340);
-    
-    if (dotProducto > anguloDeteccion)
+    if (anguloVectores >= anguloDeteccion)
   {
     fill(#d53032);
     textSize(40);
@@ -79,32 +84,12 @@ class Enemigo extends GameObject implements IVisualizable
   }
   }
   
-  private float anguloEntreVectores(Vector vector1, Vector vector2) {
-  // Calcula el producto punto entre los dos vectores
-  float productoPunto = PVector.dot(vector1.getDestino(), vector2.getDestino());
-  
-  // Calcula las magnitudes de los vectores
-  float magnitudVector1 = vector1.getDestino().mag();
-  float magnitudVector2 = vector2.getDestino().mag();
-  
-  // Calcula el coseno del ángulo entre los vectores
-  float cosenoAngulo = productoPunto / (magnitudVector1 * magnitudVector2);
-  
-  // Aplica la función arcocoseno para obtener el ángulo en radianes
-  float anguloRadianes = acos(cosenoAngulo);
-  
-  // Convierte el ángulo a grados si es necesario
-  float anguloGrados = degrees(anguloRadianes);
-  
-  return anguloGrados;
-  }
-  
    public void dispararProyectil(Jugador jugador, float velocidadProyectil) {
      
         float tiempoActual = millis(); // Obtiene el tiempo actual en milisegundos
 
-    // Verifica si ha pasado suficiente tiempo desde el último disparo
-    if (tiempoActual - tiempoUltimoDisparo > intervaloDisparo) {
+        // Verifica si ha pasado suficiente tiempo desde el último disparo
+        if (tiempoActual - tiempoUltimoDisparo > intervaloDisparo) {
         // Calcula el vector que apunta desde el enemigo hacia el jugador
         PVector direccion = PVector.sub(new PVector(jugador.getPosicion().x,jugador.getPosicion().y-50), this.posicion);
         direccion.normalize(); // Normaliza el vector para obtener una dirección
@@ -120,6 +105,8 @@ class Enemigo extends GameObject implements IVisualizable
 
         // Actualiza el tiempo del último disparo
         tiempoUltimoDisparo = tiempoActual;
+        
+        println(tiempoUltimoDisparo);
     }
    }
    
