@@ -4,6 +4,8 @@ PVector puntoA;
 PVector posicionJugador;
 PVector posicionEnemigo;
 
+PFont miFuente;
+
 //GameObjects
 Jugador jugador;
 Enemigo enemigo;
@@ -13,11 +15,15 @@ public void setup()
   //Puntos
   posicionEnemigo = new PVector(width/2-200,height/2);
   posicionJugador = new PVector(0, 0);
-  puntoA = new PVector(1, 0);
   
   //GameObjects
-  jugador = new Jugador(posicionJugador,20,20);
-  enemigo = new Enemigo(posicionEnemigo,50,50);
+  jugador = new Jugador(posicionJugador,80,80);
+  enemigo = new Enemigo(posicionEnemigo,120,120);
+  
+  //Fuente
+  miFuente = createFont("pixel2.ttf", 20);
+  // Establecer la fuente por defecto
+  textFont(miFuente);
 }
 
 public void draw()

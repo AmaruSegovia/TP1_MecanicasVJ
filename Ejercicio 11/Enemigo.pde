@@ -6,7 +6,11 @@ class Enemigo extends GameObject implements IVisualizable
   private ArrayList<Proyectil> listaProyectiles;
   private float tiempoUltimoDisparo; 
   private float intervaloDisparo = 600; 
-   
+  private float amplitudMovimiento = 15; // Amplitud del movimiento vertical
+  private float velocidadMovimiento = 0.002; // Velocidad del movimiento vertical
+  private float tiempoInicioMovimiento; // Tiempo de inicio del movimiento vertical
+  private float desplazamientoVertical;
+  
   public Enemigo() {}
 
 
@@ -16,18 +20,24 @@ class Enemigo extends GameObject implements IVisualizable
     this.ancho=ancho;
     this.alto=alto;
     this.sprite = loadImage("enemigo.png");
+    this.vectorEnemigo = new Vector();
     this.vectorEnemigoJugador =  new Vector();
     this.listaProyectiles = new ArrayList<Proyectil>();
   }
   
   public void display()
   {
-    image(sprite, enemigo.getPosicion().x - sprite.width/4, enemigo.getPosicion().y - sprite.height/4,ancho+80,alto+80);
+    float tiempoTranscurrido = millis() - tiempoInicioMovimiento;
+    desplazamientoVertical = amplitudMovimiento * sin(velocidadMovimiento * tiempoTranscurrido);
+
+    imageMode(CENTER);
+    image(sprite, enemigo.getPosicion().x, enemigo.getPosicion().y + desplazamientoVertical,ancho,alto);
     enemigo.vectorEnemigoJugador(jugador);
     vectorUnitarioDerecha();
     this.vectorEnemigo.display();
     detectarJugador();
   }
+  
   
   public void vectorUnitarioDerecha()
   {
@@ -54,58 +64,46 @@ class Enemigo extends GameObject implements IVisualizable
     println(dotProducto);
     textSize(20);
     fill(#ff6961);
-    text("Producto Punto: "+ dotProducto,100,320);
-    text("Angulo entre 2 Vectores: "+ anguloVectores,100,300);
-
+    text("Angulo entre 2 Vectores: "+ anguloVectores,50,260);
+    text("Producto Punto: "+ dotProducto,50,290);
+    
     int angulo = 30;
     float anguloDeteccion = cos(radians(angulo));  //Radio de deteccion del enemigo
-    
     int anguloGrados = round(degrees(acos(anguloVectores))); //Lo hago solo para mostrar por pantalla
-    if(anguloGrados <= 30)
+    
+    if(dotProducto >= anguloDeteccion)
     {
         fill(#77dd77);
     }
-    text("Rango de deteccion: " + angulo +"°",100,340);
+    text("Rango de deteccion: " + angulo +"°",50,320);
     fill(#ff6961);
-    text("Angulo: " + anguloGrados +"°",101,360);
+    text("Angulo: " + anguloGrados +"°",51,350);
 
     if (anguloVectores >= anguloDeteccion)
   {
     fill(#d53032);
     textSize(40);
-    text("!  !  !",width/4-31,height/2-70);
+    text(" ! ! ! ",enemigo.getPosicion().x-31,enemigo.getPosicion().y-40+desplazamientoVertical);
     //Disparar Proyectil
     dispararProyectil(jugador, 5);
   }else
   {
     fill(#ffbd77);
     textSize(40);
-    text(".  .  .",width/4-29,height/2-70);
+    text(". . .",enemigo.getPosicion().x-21,enemigo.getPosicion().y-40+desplazamientoVertical);
   }
   }
   
    public void dispararProyectil(Jugador jugador, float velocidadProyectil) {
      
         float tiempoActual = millis(); // Obtiene el tiempo actual en milisegundos
-
-        // Verifica si ha pasado suficiente tiempo desde el último disparo
-        if (tiempoActual - tiempoUltimoDisparo > intervaloDisparo) {
-        // Calcula el vector que apunta desde el enemigo hacia el jugador
-        PVector direccion = PVector.sub(new PVector(jugador.getPosicion().x,jugador.getPosicion().y-50), this.posicion);
+        if (tiempoActual - tiempoUltimoDisparo > intervaloDisparo) {  
+        PVector direccion = PVector.sub(new PVector(jugador.getPosicion().x,jugador.getPosicion().y), this.posicion);// Multiplica la dirección por la velocidad del proyectil para obtener el vector de velocidad
         direccion.normalize(); // Normaliza el vector para obtener una dirección
-
-        // Multiplica la dirección por la velocidad del proyectil para obtener el vector de velocidad
-        direccion.mult(velocidadProyectil);
-
-        // Crea un nuevo proyectil en la posición del enemigo con la velocidad calculada
-        Proyectil proyectil = new Proyectil(enemigo.getPosicion(), direccion);
-
-        // Agrega el proyectil a la lista de proyectiles
-        listaProyectiles.add(proyectil);
-
-        // Actualiza el tiempo del último disparo
-        tiempoUltimoDisparo = tiempoActual;
-        
+        direccion.mult(velocidadProyectil); // Multiplica la dirección por la velocidad del proyectil para obtener el vector de velocidad
+        Proyectil proyectil = new Proyectil(enemigo.getPosicion(), direccion); // Crea un nuevo proyectil en la posición del enemigo con la velocidad calculada
+        listaProyectiles.add(proyectil); // Agrega el proyectil a la lista de proyectiles
+        tiempoUltimoDisparo = tiempoActual;// Actualiza el tiempo del último disparo
         println(tiempoUltimoDisparo);
     }
    }

@@ -9,6 +9,7 @@ class Jugador extends GameObject implements IVisualizable {
     }
   
     public void display() {
-        image(sprite, posicion.x - sprite.width/4, posicion.y - sprite.height/4, ancho+80, alto+80);
+        imageMode(CENTER);
+        image(sprite, posicion.x, posicion.y , ancho, alto);
     }
 }
