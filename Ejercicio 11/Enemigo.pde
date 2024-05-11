@@ -85,7 +85,7 @@ class Enemigo extends GameObject implements IVisualizable
     textSize(40);
     text(" ! ! ! ",enemigo.getPosicion().x-31,enemigo.getPosicion().y-40+desplazamientoVertical);
     //Disparar Proyectil
-    dispararProyectil(5);
+    dispararProyectil(6);
   }else
   {
     fill(#ffbd77);
