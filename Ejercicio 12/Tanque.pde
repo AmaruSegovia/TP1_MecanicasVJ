@@ -76,7 +76,7 @@ class Tanque extends GameObject {
     imageMode(CENTER);
     translate(tanque.getPosicion().x,tanque.getPosicion().y);
     rotate(angulo*sentidoHorario);
-    image(this.cabezaTanque,0,0,this.cabezaTanque.width*3,this.cabezaTanque.height*3);
+    image(this.cabezaTanque,0,0,this.cabezaTanque.width*4,this.cabezaTanque.height*4);
     popMatrix();
   }
   

@@ -9,14 +9,14 @@ public void setup()
   size(900,800);
   posicionTanque = new PVector(width/2,height/2);
   posicionEnemigo = new PVector(width/2,height/2);
-  tanque = new Tanque(posicionTanque,300,300);
+  tanque = new Tanque(posicionTanque,400,400);
   enemigo = new Enemigo(posicionEnemigo,150,150);
 }
 
 public void draw()
 {
    background(#ffffff);
-  enemigo.display();
+
   tanque.display();
   tanque.setPosicion(new PVector(mouseX,mouseY));
   
@@ -32,4 +32,5 @@ public void draw()
 
         }
     }
+      enemigo.display();
 }
