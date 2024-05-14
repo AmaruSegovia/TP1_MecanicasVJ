@@ -5,7 +5,6 @@ PVector posicionJugador;
 PVector posicionEnemigo;
 
 PFont miFuente;
-
 //GameObjects
 Jugador jugador;
 Enemigo enemigo;
@@ -45,6 +44,10 @@ public void draw()
         // Si el proyectil sale de la pantalla, remuévelo de la lista usando el iterador
         if (proyectil.fueraDePantalla()) {
             iterator.remove(); // Usa el iterador para eliminar el proyectil de la lista
+        }
+        if(proyectil.colisionJugador())
+        {
+          jugador.displayQuemado();
         }
     }
 

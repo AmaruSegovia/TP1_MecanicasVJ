@@ -6,7 +6,7 @@ class Dispensador extends GameObject {
     
     private ArrayList<Pelota> listaPelotas;
     private float tiempoUltimoDisparo; 
-    private float intervaloDisparo = 1000; 
+    private float intervaloDisparo = 3000; 
 
 
     public Dispensador(PVector posicion, int ancho, int alto) {
@@ -26,8 +26,8 @@ class Dispensador extends GameObject {
         imageMode(CENTER);
         image(cuerpoTanque, posicion.x, posicion.y , ancho, alto);
         vectorUnitarioArriba();
-        vectorDispensadorDireccion(new PVector(mouseX,mouseY));
-        dispararPelota(4);
+        vectorDispensadorDireccion(new PVector(mouseX, mouseY));
+        dispararPelota(1);
     }
     public void vectorUnitarioArriba()
     {

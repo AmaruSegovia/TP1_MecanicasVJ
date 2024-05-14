@@ -25,6 +25,7 @@ class Tanque extends GameObject {
     public void display() {
         imageMode(CENTER);
         image(cuerpoTanque, posicion.x, posicion.y , ancho, alto);
+
         vectorUnitarioArriba();
         vectorTanqueObjetivo(enemigo);
         detectarJugador();
@@ -46,18 +47,21 @@ class Tanque extends GameObject {
   {
     float magnitud = this.vectorTanqueObjetivo.getDestino().mag();
     
-    textSize(20);
-    fill(#ff6961);
-    text("Magnitud: "+ magnitud,50,260);
-    
-    if (magnitud <= 250)
+    if (magnitud <= 300)
     {
     rotarTanque();
     dispararProyectil(5);
+    fill(#549D83);
+    textSize(40);
+    text("Magnitud: "+ magnitud,50,100);
+    text("¡Enemigo detectado!",50,140);
     }
     else
     {
-    image(cabezaTanque, posicion.x, posicion.y , ancho, alto);
+    image(cabezaTanque, posicion.x, posicion.y , this.cabezaTanque.width/2, this.cabezaTanque.width/2);
+    textSize(40);
+    fill(#ff6961);
+    text("Magnitud: "+ magnitud,50,100);
     }
     
   }
@@ -76,7 +80,7 @@ class Tanque extends GameObject {
     imageMode(CENTER);
     translate(tanque.getPosicion().x,tanque.getPosicion().y);
     rotate(angulo*sentidoHorario);
-    image(this.cabezaTanque,0,0,this.cabezaTanque.width*4,this.cabezaTanque.height*4);
+    image(this.cabezaTanque,0,0,this.cabezaTanque.width/2,this.cabezaTanque.height/2);
     popMatrix();
   }
   

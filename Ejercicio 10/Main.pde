@@ -40,11 +40,12 @@ public void setup()
     ellipse(puntoA.x,puntoA.y, 8,8);
     
     // Dibujar el rectángulo de fondo
-    fill(200);
+    fill(#f5f6ab);
     rect(100, 160, 200, 160);
     
     fill(#F6FF93,200);
     stroke(#F6FF93,200);
+    strokeWeight(0);
     rect(150, 150, 100, 20);
     
     stroke(0);
@@ -57,11 +58,11 @@ public void setup()
     textSize(14);
     fill(#0e8d94);
     strokeWeight(1.5);
-    ellipse(centerY-60, centerX-10, 8,8);
+    ellipse(centerY-66, centerX-10, 8,8);
     fill(0);
-    text("Punto de Origen", centerX, centerY-10);
+    text("Punto de Origen (O)", centerX, centerY-10);
     text("Vectores", centerX, centerY + 20);
-    text("VectorA = Vector(A,C)", centerX, centerY + 40); //Rojo
-    text("VectorB = Vector(A,B)", centerX, centerY + 60); //Verde
+    text("VectorA = Vector(O,A)", centerX, centerY + 40); //Rojo
+    text("VectorB = Vector(O,B)", centerX, centerY + 60); //Verde
     text("VectorC = VectorA + VectorB", centerX, centerY + 80); //Amarillo
   }

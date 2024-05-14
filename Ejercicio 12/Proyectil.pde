@@ -1,11 +1,14 @@
 class Proyectil extends GameObject {
     private PVector velocidad;
     private PImage sprite;
+    private PImage explosion;
+    private float distancia;
 
     public Proyectil(PVector posicionInicial, PVector velocidadInicial) {
         this.posicion = posicionInicial.copy();
         this.velocidad = velocidadInicial.copy();
-        this.sprite = loadImage("proyectil.png");
+        this.sprite = loadImage("bomb.png");
+        this.explosion = loadImage("explosion.png");
     }
 
     public void actualizar() {
@@ -14,18 +17,17 @@ class Proyectil extends GameObject {
     }
 
     public void display() {
-        //ellipse(this.posicion.x, this.posicion.y, this.radio*2, this.radio*2);
-        image(sprite,this.posicion.x , this.posicion.y,75,75);
+        if(distancia < 30){
+        image(explosion,this.posicion.x , this.posicion.y,80,80);
+        }else{
+        image(sprite,this.posicion.x , this.posicion.y,55,55);
+        }
     }
 
-    public boolean fueraDePantalla() {
-        // Verifica si el proyectil está fuera de la pantalla
-        return (this.posicion.x < 0 || this.posicion.x > width || this.posicion.y < 0 || this.posicion.y > height);
-    }
     public boolean colisionEnemigo() {
-        // Verifica si el proyectil está fuera de la pantalla
-        return this.posicion ==  enemigo.getPosicion();
-    }
+    distancia = this.posicion.dist(enemigo.getPosicion());
+    return distancia < 3; 
+  }
 
     public PVector getVelocidad() {
         return this.velocidad;

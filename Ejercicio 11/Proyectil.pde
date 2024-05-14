@@ -14,9 +14,14 @@ class Proyectil extends GameObject implements IVisualizable {
     }
 
     public void display() {
-        //ellipse(this.posicion.x, this.posicion.y, this.radio*2, this.radio*2);
+        
         image(sprite,this.posicion.x , this.posicion.y,75,75);
     }
+    
+    public boolean colisionJugador() {
+    float distancia = this.posicion.dist(jugador.getPosicion());
+    return distancia < 50; 
+  }
 
     public boolean fueraDePantalla() {
         // Verifica si el proyectil está fuera de la pantalla

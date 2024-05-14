@@ -9,17 +9,17 @@ public void setup()
   size(900,800);
   posicionTanque = new PVector(width/2,height/2);
   posicionEnemigo = new PVector(width/2,height/2);
-  tanque = new Tanque(posicionTanque,400,400);
-  enemigo = new Enemigo(posicionEnemigo,150,150);
+  tanque = new Tanque(posicionTanque,80,160);
+  enemigo = new Enemigo(posicionEnemigo,200,200);
 }
 
 public void draw()
 {
    background(#ffffff);
 
-  tanque.display();
+
   tanque.setPosicion(new PVector(mouseX,mouseY));
-  
+        enemigo.display();
   Iterator<Proyectil> iterator = tanque.listaProyectiles.iterator();
     while (iterator.hasNext()) {
         Proyectil proyectil = iterator.next();
@@ -27,10 +27,10 @@ public void draw()
         proyectil.display();    // Dibuja el proyectil
         enemigo.aumentarContador();
         // Si el proyectil sale de la pantalla, remuévelo de la lista usando el iterador
-        if (proyectil.fueraDePantalla() || proyectil.colisionEnemigo()) {
+        if (proyectil.colisionEnemigo()) {
             iterator.remove(); // Usa el iterador para eliminar el proyectil de la lista
-
         }
     }
-      enemigo.display();
+
+        tanque.display();
 }
