@@ -1,18 +1,16 @@
-Vector vectorA;
-Vector vectorB;
-Vector vectorC;
-Vector vectorD;
-Vector vectorE;
+private Vector vectorA;
+private Vector vectorB;
+private Vector vectorC;
+private Vector vectorD;
+private Vector vectorE;
 PVector puntoA;
-PVector puntoB;
-PVector puntoC;
 public void setup()
 {
     size (900,500);
   // Definir los puntos A, B y C
-  puntoA = new PVector(width/2-40, height/2-80);
-  puntoB = new PVector(160, -40);
-  puntoC = new PVector(250, 80);
+   puntoA = new PVector(width/2-40, height/2-80);
+  PVector puntoB = new PVector(160, -40);
+  PVector puntoC = new PVector(250, 80);
   vectorA = new Vector (puntoA, puntoC);
   vectorB = new Vector (puntoA, puntoB);
   vectorC = vectorA.sumar(vectorB);

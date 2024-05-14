@@ -6,8 +6,8 @@ class Tanque extends GameObject {
     
     private ArrayList<Proyectil> listaProyectiles;
     private float tiempoUltimoDisparo; 
-    private float intervaloDisparo = 600; 
-
+    private float intervaloDisparo = 700; 
+    private float  magnitud;
 
     public Tanque(PVector posicion, int ancho, int alto) {
         this.posicion = posicion;
@@ -28,7 +28,7 @@ class Tanque extends GameObject {
 
         vectorUnitarioArriba();
         vectorTanqueObjetivo(enemigo);
-        detectarJugador();
+        detectarObjetivo();
     }
     public void vectorUnitarioArriba()
     {
@@ -36,31 +36,31 @@ class Tanque extends GameObject {
      vectorTanque.display();
     }
     
-    public void vectorTanqueObjetivo(GameObject enemigo)
+    public void vectorTanqueObjetivo(GameObject objetivo)
     {
     vectorTanqueObjetivo.setOrigen(tanque.getPosicion());
-    vectorTanqueObjetivo.setDestino(PVector.sub(enemigo.getPosicion(),tanque.getPosicion()));
+    vectorTanqueObjetivo.setDestino(PVector.sub(objetivo.getPosicion(),tanque.getPosicion()));
     vectorTanqueObjetivo.display();
     }
     
-    public void detectarJugador()
+    public void detectarObjetivo()
   {
-    float magnitud = this.vectorTanqueObjetivo.getDestino().mag();
+     magnitud = this.vectorTanqueObjetivo.getDestino().mag();
     
     if (magnitud <= 300)
     {
     rotarTanque();
-    dispararProyectil(5);
+    dispararProyectil(6);
     fill(#549D83);
-    textSize(40);
+    textSize(30);
     text("Magnitud: "+ magnitud,50,100);
     text("¡Enemigo detectado!",50,140);
     }
     else
     {
     image(cabezaTanque, posicion.x, posicion.y , this.cabezaTanque.width/2, this.cabezaTanque.width/2);
-    textSize(40);
     fill(#BF352E);
+    textSize(30);
     text("Magnitud: "+ magnitud,50,100);
     }
     

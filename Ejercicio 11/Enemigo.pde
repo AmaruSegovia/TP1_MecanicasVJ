@@ -44,10 +44,6 @@ class Enemigo extends GameObject implements IVisualizable
      this.vectorEnemigo = new Vector(enemigo.getPosicion(), new PVector(1,0));
   }
   
-  public void vectorUnitarioIzquierda()
-  {
-     this.vectorEnemigo = new Vector(enemigo.getPosicion(), new PVector(-1,0));
-  }
   
   public void vectorEnemigoJugador(GameObject jugador)
   {

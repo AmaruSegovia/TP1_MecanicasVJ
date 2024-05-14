@@ -47,16 +47,5 @@ private PVector destino;
     PVector puntoFinal = new PVector(origen.x+destino.x,origen.y+destino.y);
     return puntoFinal;
     }
-    
-    
-    public float obtenerProductoPunto(Vector vector)
-    {
-      return PVector.dot(this.getDestino(),vector.getDestino());
-    }
-    
-    public float anguloEntreVectores(Vector vector)
-    {
-      return degrees(PVector.angleBetween(this.getDestino(), vector.getDestino()));
-    }
-
+   
 }
