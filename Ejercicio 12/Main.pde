@@ -4,6 +4,8 @@ Tanque tanque;
 Enemigo enemigo;
 PVector posicionTanque;
 PVector posicionEnemigo;
+
+PFont miFuente;
 public void setup()
 {
   size(900,800);
@@ -11,6 +13,8 @@ public void setup()
   posicionEnemigo = new PVector(width/2,height/2);
   tanque = new Tanque(posicionTanque,80,160);
   enemigo = new Enemigo(posicionEnemigo,200,200);
+  miFuente = createFont("pixelFont.ttf", 20);
+  textFont(miFuente);
 }
 
 public void draw()

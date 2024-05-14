@@ -20,7 +20,7 @@ public void setup()
   enemigo = new Enemigo(posicionEnemigo,120,120);
   
   //Fuente
-  miFuente = createFont("pixel2.ttf", 20);
+  miFuente = createFont("pixelFont.ttf", 20);
   // Establecer la fuente por defecto
   textFont(miFuente);
 }

@@ -2,7 +2,6 @@ class Enemigo extends GameObject {
     private PImage casa;
     private PImage casaDestruida;
     int destruirCasa;
-    int vida;
 
     public Enemigo(PVector posicion, int ancho, int alto) {
         this.posicion = posicion;
@@ -10,7 +9,6 @@ class Enemigo extends GameObject {
         this.alto = alto;
         this.casa = loadImage("casa.png");
         this.casaDestruida = loadImage("casadestruida.png");
-        this.vida = vida;
     }
 
     public void display() {

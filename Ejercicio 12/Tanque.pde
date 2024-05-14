@@ -60,7 +60,7 @@ class Tanque extends GameObject {
     {
     image(cabezaTanque, posicion.x, posicion.y , this.cabezaTanque.width/2, this.cabezaTanque.width/2);
     textSize(40);
-    fill(#ff6961);
+    fill(#BF352E);
     text("Magnitud: "+ magnitud,50,100);
     }
     
