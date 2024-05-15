@@ -61,8 +61,8 @@ class Enemigo extends GameObject implements IVisualizable
     println(dotProducto);
     textSize(20);
     fill(#ff6961);
-    text("Angulo entre 2 Vectores: "+ anguloVectores,50,260);
-    text("Producto Punto: "+ dotProducto,50,290);
+    text("Angulo entre 2 Vectores: "+ anguloVectores,50,200);
+    text("Producto Punto: "+ dotProducto,50,230);
     
     int angulo = 30;
     float anguloDeteccion = cos(radians(angulo));  //Radio de deteccion del enemigo
@@ -72,9 +72,9 @@ class Enemigo extends GameObject implements IVisualizable
     {
         fill(#77dd77);
     }
-    text("Rango de deteccion: " + angulo +"°",50,320);
+    text("Rango de deteccion: " + angulo +"°",50,260);
     fill(#ff6961);
-    text("Angulo: " + anguloGrados +"°",51,350);
+    text("Angulo: " + anguloGrados +"°",51,290);
 
     if (anguloVectores >= anguloDeteccion)
   {

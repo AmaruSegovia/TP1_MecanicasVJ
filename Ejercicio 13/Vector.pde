@@ -1,22 +1,22 @@
-class Vector 
-  {
-private PVector origen;
-private PVector destino;
+class Vector
+{
+  private PVector origen;
+  private PVector destino;
 
   //Contructor parametrizado
   public Vector (PVector origen, PVector destino)
-    {
-  this.origen = origen;
-  this.destino = destino;
-    }
+  {
+    this.origen = origen;
+    this.destino = destino;
+  }
   //Constructor no parametrizado
   public Vector ()
-    {
-  this.origen = new PVector();
-  this.destino = new PVector();
-    }
+  {
+    this.origen = new PVector();
+    this.destino = new PVector();
+  }
 
- // Getters
+  // Getters
   public PVector getOrigen() {
     return this.origen;
   }
@@ -35,28 +35,56 @@ private PVector destino;
   }
 
   public void display ()
-      {
-      PVector puntoFinal = obtenerPuntoFinal();
-      strokeWeight(1);
-      line(origen.x, origen.y, puntoFinal.x,puntoFinal.y);
-      point(PVector.add(this.getOrigen(), this.getDestino()).x,
-            PVector.add(this.getOrigen(), this.getDestino()).y);
-      }
-    private PVector obtenerPuntoFinal()
-    {
-    PVector puntoFinal = new PVector(origen.x+destino.x,origen.y+destino.y);
+  {
+    PVector puntoFinal = obtenerPuntoFinal();
+    strokeWeight(1);
+    line(origen.x, origen.y, puntoFinal.x, puntoFinal.y);
+    point(PVector.add(this.getOrigen(), this.getDestino()).x,
+      PVector.add(this.getOrigen(), this.getDestino()).y);
+  }
+  private PVector obtenerPuntoFinal()
+  {
+    PVector puntoFinal = new PVector(origen.x+destino.x, origen.y+destino.y);
     return puntoFinal;
-    }
-    
-    
-    public float obtenerProductoPunto(Vector vector)
-    {
-      return PVector.dot(this.getDestino(),vector.getDestino());
-    }
-    
-    public float anguloEntreVectores(Vector vector)
-    {
-      return degrees(PVector.angleBetween(this.getDestino(), vector.getDestino()));
-    }
+  }
 
+
+  public float obtenerProductoPunto(Vector vector)
+  {
+    return PVector.dot(this.getDestino(), vector.getDestino());
+  }
+
+  public float anguloEntreVectores(Vector vector)
+  {
+    return degrees(PVector.angleBetween(this.getDestino(), vector.getDestino()));
+  }
+
+  public Vector multiplicarPorEscalar(int k)
+  {
+    Vector vectorTotal = new Vector();
+    vectorTotal.origen = this.origen;
+    vectorTotal.destino = new PVector(k * vectorTotal.destino.x, k * vectorTotal.destino.y);
+    return vectorTotal;
+  }
+  
+  public Vector restar(Vector segundoVector)
+    {
+      Vector vectorTotal = new Vector();
+      vectorTotal.origen = this.origen;
+      vectorTotal.destino = PVector.sub(this.destino,segundoVector.destino);
+      return vectorTotal;
+    }
+    
+    public Vector multiplicarPorVector(Vector otroVector) {
+    float nuevoX = this.destino.x * otroVector.destino.x;
+    float nuevoY = this.destino.y * otroVector.destino.y;
+
+    Vector nuevoVector = new Vector();
+    nuevoVector.origen = new PVector(0, 0); // Origen arbitrario para el nuevo vector
+    nuevoVector.destino = new PVector(nuevoX, nuevoY);
+    
+    return nuevoVector;
+}
+
+    
 }

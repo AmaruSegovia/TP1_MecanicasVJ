@@ -7,6 +7,7 @@ class Dispensador extends GameObject {
     private ArrayList<Pelota> listaPelotas;
     private float tiempoUltimoDisparo; 
     private float intervaloDisparo = 3000; 
+    private PVector direccion;
 
 
     public Dispensador(PVector posicion, int ancho, int alto) {
@@ -27,7 +28,7 @@ class Dispensador extends GameObject {
         image(cuerpoTanque, posicion.x, posicion.y , ancho, alto);
         vectorUnitarioArriba();
         vectorDispensadorDireccion(new PVector(mouseX, mouseY));
-        dispararPelota(1);
+        dispararPelota(6);
     }
     public void vectorUnitarioArriba()
     {
@@ -45,12 +46,11 @@ class Dispensador extends GameObject {
     public void dispararPelota(float velocidadPelota) {
     float tiempoActual = millis();
     if (tiempoActual - tiempoUltimoDisparo > intervaloDisparo) {
-        PVector direccion = vectorDireccion.getDestino().normalize();
-        direccion.mult(velocidadPelota);
-        // Crear la pelota en una posición independiente de la del dispensador
+         direccion = vectorDireccion.getDestino().copy().normalize().mult(velocidadPelota);
         Pelota pelota = new Pelota(new PVector(posicion.x, posicion.y), 40, 40, direccion);
         listaPelotas.add(pelota);
         tiempoUltimoDisparo = tiempoActual;
     }
 }
+
 }

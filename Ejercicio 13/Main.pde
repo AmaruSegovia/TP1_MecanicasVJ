@@ -22,11 +22,7 @@ public void draw() {
   Iterator<Pelota> iterator = dispensador.listaPelotas.iterator();
   while (iterator.hasNext()) {
     Pelota pelota = iterator.next();
-    pelota.actualizar(); // Actualiza la posición de la pelota
-    pelota.display();    // Dibuja la pelota
+    pelota.actualizar();
+    pelota.display();   
   }
-}
-
-public void mousePressed() {
-  dispensador.dispararPelota(6);
 }
