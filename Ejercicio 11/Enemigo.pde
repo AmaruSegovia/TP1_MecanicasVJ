@@ -10,7 +10,7 @@ class Enemigo extends GameObject implements IVisualizable
   private float velocidadMovimiento = 0.002; // Velocidad del movimiento vertical
   private float tiempoInicioMovimiento; // Tiempo de inicio del movimiento vertical
   private float desplazamientoVertical;
-  
+  private int anguloGrados;
   public Enemigo() {}
 
 
@@ -32,10 +32,9 @@ class Enemigo extends GameObject implements IVisualizable
 
     imageMode(CENTER);
     image(sprite, enemigo.getPosicion().x, enemigo.getPosicion().y + desplazamientoVertical,ancho,alto);
-    enemigo.vectorEnemigoJugador(jugador);
     vectorUnitarioDerecha();
     this.vectorEnemigo.display();
-    detectarJugador();
+    detectarJugador(jugador);
   }
   
   
@@ -52,8 +51,10 @@ class Enemigo extends GameObject implements IVisualizable
     vectorEnemigoJugador.display();
   }
   
-  public void detectarJugador()
+  public void detectarJugador(GameObject jugador)
   {
+    vectorEnemigoJugador(jugador);
+    
     float dotProducto = vectorEnemigo.obtenerProductoPunto(vectorEnemigoJugador);
     float anguloVectores = vectorEnemigo.obtenerProductoPunto(vectorEnemigoJugador);
     
@@ -65,7 +66,7 @@ class Enemigo extends GameObject implements IVisualizable
     
     int angulo = 30;
     float anguloDeteccion = cos(radians(angulo));  //Radio de deteccion del enemigo
-    int anguloGrados = round(degrees(acos(anguloVectores))); //Lo hago solo para mostrar por pantalla
+     anguloGrados = round(degrees(acos(anguloVectores))); //Lo hago solo para mostrar por pantalla
     
     if(dotProducto >= anguloDeteccion)
     {
